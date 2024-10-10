@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction - Financial Tracker</title>
+    <link rel="stylesheet" href="portfoliotracker.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Financial Tracker</div>
+    <div class="logout"><a href="login.html">Logout</a></div>
+</header>
+
+<div class="form-container">
+    <h1>Add New Transaction</h1>
+    <form id="transaction-form">
+        <label for="recipient">Recipient:</label>
+        <input type="text" id="recipient" required>
+
+        <label for="account">Sender Account:</label>
+        <input type="text" id="account" required>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" required>
+
+        <button type="submit">Add Transaction</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('transaction-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Gather form data
+        const recipient = document.getElementById('recipient').value;
+        const account = document.getElementById('account').value;
+        const amount = document.getElementById('amount').value;
+        const country = document.getElementById('country').value;
+        const datetime = new Date().toLocaleString();
+
+        // Create transaction object
+        const transaction = { recipient, account, amount, country, datetime };
+
+        // Save to local storage
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        transactions.push(transaction);
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+
+        // Redirect to main page
+        window.location.href = 'dashboard.html';
+    });
+
+
+   
+        document.getElementById('transactionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const recipient = document.getElementById('recipient').value;
+            const account = document.getElementById('account').value;
+            const datetime = document.getElementById('datetime').value;
+            const amount = document.getElementById('amount').value;
+            const country = document.getElementById('country').value;
+
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            transactions.push({ recipient, account, datetime, amount, country });
+
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            alert('Transaction added successfully!');
+            window.location.href = 'dashboard.html'; // Redirect to the dashboard after adding
+        });
+ 
+</script>
+</body>
+</html>
